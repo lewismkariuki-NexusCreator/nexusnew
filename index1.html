@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus — Kenya's Live Map Discovery Platform</title>
+<meta name="description" content="Top up M-PESA. Appear on the map. Get found. Nexus connects Kenya's 7.4 million businesses with clients who need them — right now, near them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff;
+  --off:#f7f6f2;
+  --black:#0c0c0a;
+  --ink:#1a1a16;
+  --mid:#6b6b60;
+  --faint:#d4d3c8;
+  --green:#0f5c32;
+  --green-mid:#1a7a44;
+  --green-light:#e6f4ec;
+  --green-text:#0d5230;
+  --orange:#c94f1a;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:'Geist',sans-serif;font-size:15px;font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--faint)}
+.logo{font-family:'Geist',sans-serif;font-weight:500;font-size:1rem;letter-spacing:0.01em;color:var(--ink);display:flex;align-items:center;gap:6px}
+.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+nav a.cta{font-size:0.78rem;font-weight:500;color:var(--white);background:var(--ink);text-decoration:none;padding:0.45rem 1.1rem;border-radius:3px;transition:background 0.15s}
+nav a.cta:hover{background:var(--green)}
+
+/* HERO */
+.hero{padding:8rem 2.5rem 4.5rem;max-width:1000px;margin:0 auto;border-bottom:1px solid var(--faint)}
+.hero-tag{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:2rem}
+.hero-tag::before{content:'';display:block;width:18px;height:1px;background:var(--green)}
+.hero h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.15;letter-spacing:-0.02em;color:var(--ink);max-width:760px;margin-bottom:1.75rem}
+.hero h1 em{font-style:italic;color:var(--green)}
+.hero-body{font-size:1rem;font-weight:300;color:var(--mid);max-width:520px;line-height:1.75;margin-bottom:2.5rem}
+.hero-actions{display:flex;align-items:center;gap:1.5rem}
+.btn-primary{font-size:0.8rem;font-weight:500;color:var(--white);background:var(--ink);text-decoration:none;padding:0.7rem 1.5rem;border-radius:3px;transition:background 0.15s}
+.btn-primary:hover{background:var(--green)}
+.btn-link{font-size:0.88rem;color:var(--mid);text-decoration:none;border-bottom:1px solid var(--faint);padding-bottom:1px;transition:all 0.15s}
+.btn-link:hover{color:var(--ink);border-color:var(--ink)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--faint);background:var(--off)}
+.stat{padding:2rem 2.5rem;border-right:1px solid var(--faint)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Instrument Serif',serif;font-weight:400;font-size:2.2rem;color:var(--ink);line-height:1;margin-bottom:0.4rem}
+.stat-l{font-size:0.72rem;color:var(--mid);letter-spacing:0.02em;line-height:1.4}
+
+/* SECTIONS */
+.section{max-width:1000px;margin:0 auto;padding:5rem 2.5rem;border-bottom:1px solid var(--faint)}
+.section-tag{font-size:0.68rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);margin-bottom:2.5rem;display:flex;align-items:center;gap:0.75rem}
+.section-tag::after{content:'';flex:1;height:1px;background:var(--faint)}
+h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(1.6rem,3vw,2.3rem);letter-spacing:-0.015em;line-height:1.2;margin-bottom:3rem;max-width:540px}
+
+/* MECHANIC — THE BIG EXPLAINER */
+.mechanic-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.mechanic-steps{display:flex;flex-direction:column;gap:0;border:1px solid var(--faint);border-radius:4px;overflow:hidden}
+.mstep{display:grid;grid-template-columns:36px 1fr;gap:1rem;padding:1.5rem;border-bottom:1px solid var(--faint);transition:background 0.15s}
+.mstep:last-child{border-bottom:none}
+.mstep:hover{background:var(--off)}
+.mstep-n{font-size:0.68rem;font-weight:500;letter-spacing:0.1em;color:var(--faint);padding-top:2px}
+.mstep h3{font-size:0.9rem;font-weight:500;color:var(--ink);margin-bottom:0.4rem}
+.mstep p{font-size:0.82rem;color:var(--mid);line-height:1.6}
+.mstep-tag{display:inline-block;margin-top:0.75rem;font-size:0.68rem;font-weight:500;color:var(--green-text);background:var(--green-light);padding:0.2rem 0.6rem;border-radius:2px}
+.mechanic-copy h2{margin-bottom:1.25rem}
+.mechanic-copy p{font-size:0.9rem;color:var(--mid);line-height:1.75;margin-bottom:1rem}
+.mechanic-copy p strong{color:var(--ink);font-weight:500}
+
+/* WHO IT SERVES */
+.serve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--faint);border:1px solid var(--faint);border-radius:4px;overflow:hidden}
+.serve-card{background:var(--white);padding:1.75rem;transition:background 0.15s}
+.serve-card:hover{background:var(--off)}
+.serve-icon{font-size:1.5rem;margin-bottom:1rem}
+.serve-card h3{font-size:0.9rem;font-weight:500;color:var(--ink);margin-bottom:0.5rem}
+.serve-card p{font-size:0.8rem;color:var(--mid);line-height:1.6}
+.serve-fee{display:inline-block;margin-top:0.75rem;font-size:0.7rem;font-weight:500;color:var(--green-text);background:var(--green-light);padding:0.2rem 0.6rem;border-radius:2px}
+
+/* ZAMANI */
+.zamani-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.zamani-copy h2{margin-bottom:1.25rem}
+.zamani-copy p{font-size:0.9rem;color:var(--mid);line-height:1.75;margin-bottom:1rem}
+.zamani-copy p strong{color:var(--ink);font-weight:500}
+.tiers{border:1px solid var(--faint);border-radius:4px;overflow:hidden}
+.tier{display:grid;grid-template-columns:68px 1fr auto;align-items:center;gap:1rem;padding:1.2rem 1.5rem;border-bottom:1px solid var(--faint);transition:background 0.15s}
+.tier:last-child{border-bottom:none}
+.tier:hover{background:var(--off)}
+.tier-name{font-size:0.65rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.5rem;border-radius:2px;text-align:center}
+.t-bronze .tier-name{color:#7a5c14;background:#fdf2d0}
+.t-silver .tier-name{color:#555550;background:#f0f0ec}
+.t-gold .tier-name{color:var(--green-text);background:var(--green-light)}
+.t-plat .tier-name{color:#2c4a8c;background:#eef2fb}
+.tier-desc{font-size:0.78rem;color:var(--mid);line-height:1.5}
+.tier-price{font-size:0.82rem;font-weight:500;color:var(--ink);white-space:nowrap}
+.zamani-note{margin-top:1.25rem;padding:1rem 1.25rem;background:var(--off);border-radius:4px;font-size:0.8rem;color:var(--mid);line-height:1.65}
+.zamani-note strong{color:var(--ink);font-weight:500}
+
+/* REVENUE */
+.rev-table{width:100%;border-collapse:collapse}
+.rev-table th{font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--mid);text-align:left;padding:0 1rem 1rem 0;border-bottom:1px solid var(--faint)}
+.rev-table td{padding:1rem 1rem 1rem 0;font-size:0.88rem;color:var(--ink);border-bottom:1px solid var(--faint);vertical-align:middle}
+.rev-table tr:last-child td{border-bottom:none;font-weight:500}
+.rev-table .amount{font-family:'Instrument Serif',serif;font-size:1.15rem;color:var(--green)}
+.rev-table .muted{color:var(--mid);font-size:0.8rem}
+
+/* STREAMS */
+.streams-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.stream{padding:1.25rem 1.5rem;border:1px solid var(--faint);border-radius:4px}
+.stream-phase{font-size:0.65rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:0.5rem}
+.stream h4{font-size:0.88rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem}
+.stream p{font-size:0.78rem;color:var(--mid)}
+.stream .price{font-size:0.78rem;font-weight:500;color:var(--green-text);margin-top:0.5rem}
+
+/* TRACTION */
+.traction-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--faint);border:1px solid var(--faint);border-radius:4px;overflow:hidden}
+.traction-item{background:var(--white);padding:1.5rem 1.75rem;transition:background 0.15s}
+.traction-item:hover{background:var(--off)}
+.traction-org{font-size:0.85rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;display:flex;align-items:center;gap:0.5rem}
+.traction-org::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+.traction-status{font-size:0.78rem;color:var(--mid);padding-left:14px}
+
+/* RAISE */
+.raise{background:var(--ink);padding:5rem 2.5rem}
+.raise-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:4rem}
+.raise-inner h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--white);letter-spacing:-0.015em;line-height:1.2;margin:0;max-width:100%}
+.raise-inner h2 em{font-style:italic;color:#a8d5b8}
+.raise-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.75rem}
+.btn-white{font-size:0.82rem;font-weight:500;color:var(--ink);background:var(--white);text-decoration:none;padding:0.7rem 1.5rem;border-radius:3px;white-space:nowrap;transition:background 0.15s}
+.btn-white:hover{background:#a8d5b8}
+.raise-email{font-size:0.78rem;color:#555550}
+
+/* FOOTER */
+footer{background:var(--ink);border-top:1px solid #1e1e18;padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:#3a3a34}
+footer .f-mark{color:#3a3a34;font-weight:500}
+
+/* FADE */
+.fade{opacity:0;transform:translateY(14px);transition:opacity 0.5s ease,transform 0.5s ease}
+.fade.in{opacity:1;transform:none}
+
+@media(max-width:768px){
+  nav{padding:0 1.25rem}
+  .hero{padding:7rem 1.25rem 4rem}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{padding:1.5rem 1.25rem}
+  .section{padding:4rem 1.25rem}
+  .mechanic-grid,.zamani-layout{grid-template-columns:1fr;gap:2.5rem}
+  .serve-grid{grid-template-columns:1fr 1fr}
+  .streams-grid{grid-template-columns:1fr 1fr}
+  .traction-grid{grid-template-columns:1fr}
+  .raise-inner{grid-template-columns:1fr;gap:2rem}
+  .raise-right{align-items:flex-start}
+  footer{flex-direction:column;gap:0.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><div class="logo-dot"></div>Nexus</div>
+  <a href="mailto:lewismkariuki@gmail.com" class="cta">Contact founder</a>
+</nav>
+
+<div class="hero fade">
+  <div class="hero-tag">Nairobi, Kenya</div>
+  <h1>Top up M-PESA.<br>Appear on the map.<br><em>Get found.</em></h1>
+  <p class="hero-body">Nexus is a live map discovery platform where every business in Kenya — from mama mboga to architect — loads a small M-PESA wallet and becomes instantly findable to clients nearby. No subscriptions. No commissions. Just M-PESA and a phone call.</p>
+  <div class="hero-actions">
+    <a href="mailto:lewismkariuki@gmail.com" class="btn-primary">Request a demo</a>
+    <a href="#mechanic" class="btn-link">How it works →</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat fade">
+    <div class="stat-n">7.4M</div>
+    <div class="stat-l">MSMEs in Kenya<br><span style="font-size:0.65rem;color:#999">KNBS 2026</span></div>
+  </div>
+  <div class="stat fade">
+    <div class="stat-n">83%</div>
+    <div class="stat-l">Unlicensed — invisible<br>to every platform</div>
+  </div>
+  <div class="stat fade">
+    <div class="stat-n">32M+</div>
+    <div class="stat-l">Active M-PESA users<br><span style="font-size:0.65rem;color:#999">Safaricom</span></div>
+  </div>
+  <div class="stat fade">
+    <div class="stat-n">KSh 1</div>
+    <div class="stat-l">Minimum connection fee.<br>Less than a text message.</div>
+  </div>
+</div>
+
+<div class="section fade" id="mechanic">
+  <div class="section-tag">The mechanic</div>
+  <div class="mechanic-grid">
+    <div class="mechanic-copy">
+      <h2>Built on M-PESA. Not just integrated with it.</h2>
+      <p>Every provider on Nexus <strong>is</strong> a wallet. Every connection is a Daraja transaction. The entire discovery economy runs through Safaricom infrastructure — the same infrastructure 32 million Kenyans already use every day.</p>
+      <p>Clients connect for free. Providers pay to be found — starting at <strong>KSh 1 per lead</strong>. No monthly fees. No commissions on jobs. The wallet is the business model.</p>
+      <p>When the wallet hits zero, the provider disappears from the map. When they top up, they reappear instantly. The simplest retention mechanic ever built.</p>
+    </div>
+    <div class="mechanic-steps">
+      <div class="mstep">
+        <div class="mstep-n">01</div>
+        <div>
+          <h3>Provider tops up</h3>
+          <p>Load KSh 50 minimum to your Nexus M-PESA wallet. You appear instantly as a live, verified pin on the map.</p>
+          <span class="mstep-tag">Min. KSh 50</span>
+        </div>
+      </div>
+      <div class="mstep">
+        <div class="mstep-n">02</div>
+        <div>
+          <h3>Client searches nearby</h3>
+          <p>Client opens Nexus, searches by category within 2–15km. Sees only wallet-funded, live providers — sorted by distance and Zamani score.</p>
+        </div>
+      </div>
+      <div class="mstep">
+        <div class="mstep-n">03</div>
+        <div>
+          <h3>Connection made</h3>
+          <p>Client taps Connect. Provider receives the client's phone number via notification. Wallet deducts KSh 1–20 based on business type.</p>
+          <span class="mstep-tag">KSh 1–20 per lead</span>
+        </div>
+      </div>
+      <div class="mstep">
+        <div class="mstep-n">04</div>
+        <div>
+          <h3>Provider calls client</h3>
+          <p>Provider calls client directly. The job happens. The client never sees the provider's phone number — every future connection routes through Nexus.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section fade">
+  <div class="section-tag">Who it serves</div>
+  <h2>From the market stall to the law firm.</h2>
+  <div class="serve-grid">
+    <div class="serve-card">
+      <div class="serve-icon">🥬</div>
+      <h3>Mama mboga &amp; vendors</h3>
+      <p>Daily fresh produce sellers, market traders, hawkers. Clients find their stall without a Google listing, a website, or a smartphone.</p>
+      <span class="serve-fee">KSh 1 per connection</span>
+    </div>
+    <div class="serve-card">
+      <div class="serve-icon">🏍️</div>
+      <h3>Boda bodas &amp; matatus</h3>
+      <p>800,000+ registered boda boda riders. 8,000+ matatu SACCOs. Nexus gives them a verified identity and a client pipeline — without Uber's commissions.</p>
+      <span class="serve-fee">KSh 2 per connection</span>
+    </div>
+    <div class="serve-card">
+      <div class="serve-icon">🔧</div>
+      <h3>Trades &amp; jua kali</h3>
+      <p>Plumbers, electricians, mechanics, salons, caterers, cleaners, tailors. The backbone of Kenya's urban economy — now discoverable and verified.</p>
+      <span class="serve-fee">KSh 5 per connection</span>
+    </div>
+    <div class="serve-card">
+      <div class="serve-icon">⚖️</div>
+      <h3>Professionals</h3>
+      <p>Doctors, lawyers, architects, psychologists, accountants. A verified Zamani Gold profile on Nexus costs KSh 2,000 once. Less than one hour of billing time.</p>
+      <span class="serve-fee">KSh 20 per connection</span>
+    </div>
+    <div class="serve-card">
+      <div class="serve-icon">🏨</div>
+      <h3>Hotels, restaurants &amp; events</h3>
+      <p>Guest houses, caterers, DJs, event planners, photographers. Live status, booking slots, and real-time availability — all wallet-gated.</p>
+      <span class="serve-fee">KSh 5–20 per connection</span>
+    </div>
+    <div class="serve-card">
+      <div class="serve-icon">🌾</div>
+      <h3>Farmers &amp; SACCOs</h3>
+      <p>Agricultural producers and savings cooperatives. SACCO group wallets enable bulk top-ups for entire networks — one admin, hundreds of members live at once.</p>
+      <span class="serve-fee">KSh 2–5 per connection</span>
+    </div>
+  </div>
+</div>
+
+<div class="section fade">
+  <div class="section-tag">The Zamani Protocol</div>
+  <div class="zamani-layout">
+    <div class="zamani-copy">
+      <h2>Kenya's first portable professional identity.</h2>
+      <p>Every provider on Nexus builds a <strong>SHA-256 sealed, court-admissible professional identity</strong> — the Zamani Protocol. It follows them across platforms, grows with every job completed, and unlocks financial services that were never accessible before.</p>
+      <p>A mama mboga with a Bronze Zamani score of 200 has proof of 200 verified transactions. A plumber with Gold has KRA registration, GPS-confirmed location, and 147 completed jobs — all sealed and unfakeable.</p>
+      <p><strong>At Month 12:</strong> Zamani opens a B2B data lane. Insurance companies and lenders query Zamani scores at KSh 10–20 per call to assess informal workers for products they've never been able to access. Scaled across Kenya's SACCO network, this becomes a significant revenue stream and a genuine financial inclusion engine.</p>
+      <div class="zamani-note">Zamani score is visible on every provider profile and used for map search ranking. Higher score = higher trust = more connections.</div>
+    </div>
+    <div>
+      <div class="tiers">
+        <div class="tier t-bronze">
+          <span class="tier-name">Bronze</span>
+          <span class="tier-desc">Phone OTP only. Instant. For mama mboga, hawkers, casual workers.</span>
+          <span class="tier-price">Free</span>
+        </div>
+        <div class="tier t-silver">
+          <span class="tier-name">Silver</span>
+          <span class="tier-desc">National ID + GPS verification. 24hrs. For boda bodas, salons, mechanics.</span>
+          <span class="tier-price">KSh 500</span>
+        </div>
+        <div class="tier t-gold">
+          <span class="tier-name">Gold</span>
+          <span class="tier-desc">KRA PIN + business registration + GPS. For lawyers, doctors, architects.</span>
+          <span class="tier-price">KSh 2,000</span>
+        </div>
+        <div class="tier t-plat">
+          <span class="tier-name">Platinum</span>
+          <span class="tier-desc">Full verification suite. Unlocks insurance and lender API access.</span>
+          <span class="tier-price">KSh 5,000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section fade">
+  <div class="section-tag">Revenue model</div>
+  <h2>9 streams. Conservative projections. No viral moments required.</h2>
+  <div class="streams-grid" style="margin-bottom:3rem">
+    <div class="stream">
+      <div class="stream-phase">Foundation — Month 1+</div>
+      <h4>Connection fees</h4>
+      <p>KSh 1–20 per lead, scaled by business type</p>
+      <div class="price">KSh 1 / 2 / 5 / 20</div>
+    </div>
+    <div class="stream">
+      <div class="stream-phase">Foundation — Month 1+</div>
+      <h4>Zamani verification</h4>
+      <p>One-time fee per tier upgrade</p>
+      <div class="price">KSh 500 / 2,000 / 5,000</div>
+    </div>
+    <div class="stream">
+      <div class="stream-phase">Foundation — Month 1+</div>
+      <h4>M-PESA top-up margin</h4>
+      <p>0.5–1% on every wallet top-up</p>
+      <div class="price">0.5–1% per top-up</div>
+    </div>
+    <div class="stream">
+      <div class="stream-phase">Upside — Month 6+</div>
+      <h4>Featured posts</h4>
+      <p>24-hour boosted placement in home feed</p>
+      <div class="price">KSh 50 / 24hrs</div>
+    </div>
+    <div class="stream">
+      <div class="stream-phase">Upside — Month 6+</div>
+      <h4>Featured reels</h4>
+      <p>48-hour featured live content placement</p>
+      <div class="price">KSh 100 / 48hrs</div>
+    </div>
+    <div class="stream">
+      <div class="stream-phase">Upside — Month 6+</div>
+      <h4>Job listings</h4>
+      <p>Employers post jobs, providers apply</p>
+      <div class="price">KSh 200 / 7 days</div>
+    </div>
+    <div class="stream">
+      <div class="stream-phase">Strategic B2B — Month 12+</div>
+      <h4>Insurance API</h4>
+      <p>Insurers query Zamani scores for informal worker products</p>
+      <div class="price">KSh 10 / query</div>
+    </div>
+    <div class="stream">
+      <div class="stream-phase">Strategic B2B — Month 12+</div>
+      <h4>Lender API</h4>
+      <p>Banks and SACCOs query Zamani for credit decisions</p>
+      <div class="price">KSh 20 / query</div>
+    </div>
+    <div class="stream">
+      <div class="stream-phase">Strategic B2B — Month 12+</div>
+      <h4>SACCO group wallets</h4>
+      <p>Bulk top-up admin fee for cooperative networks</p>
+      <div class="price">KSh 500 / bulk top-up</div>
+    </div>
+  </div>
+  <table class="rev-table">
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Providers</th>
+        <th>Connections / day</th>
+        <th>Monthly revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Month 1</td><td class="muted">100</td><td class="muted">250</td><td class="amount">KSh 72K</td></tr>
+      <tr><td>Month 3</td><td class="muted">300</td><td class="muted">900</td><td class="amount">KSh 171K</td></tr>
+      <tr><td>Month 6</td><td class="muted">600</td><td class="muted">2,100</td><td class="amount">KSh 344K</td></tr>
+      <tr><td>Month 12</td><td class="muted">1,500</td><td class="muted">6,000</td><td class="amount">KSh 1.01M</td></tr>
+      <tr><td>Month 18</td><td class="muted">3,000</td><td class="muted">13,500</td><td class="amount">KSh 2.43M</td></tr>
+      <tr><td>Month 24</td><td class="muted">5,000</td><td class="muted">25,000</td><td class="amount">KSh 4.7M</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.75rem;color:var(--mid);margin-top:1rem">Conservative projections based on connection fees, Zamani verification, and M-PESA margin only. Featured content, B2B APIs, and SACCO wallets add substantially from Month 6 onwards.</p>
+</div>
+
+<div class="section fade">
+  <div class="section-tag">Traction</div>
+  <h2>Institutional momentum. Pre-launch.</h2>
+  <div class="traction-grid">
+    <div class="traction-item">
+      <div class="traction-org">BII — British International Investment</div>
+      <div class="traction-status">Active discussion — USD 150–250K seed round</div>
+    </div>
+    <div class="traction-item">
+      <div class="traction-org">World Bank Kenya</div>
+      <div class="traction-status">90-day pilot under review</div>
+    </div>
+    <div class="traction-item">
+      <div class="traction-org">CBIIC / KCA University</div>
+      <div class="traction-status">Formal incubation engagement confirmed May 2026</div>
+    </div>
+    <div class="traction-item">
+      <div class="traction-org">UNCTAD</div>
+      <div class="traction-status">Shared internally across regional teams</div>
+    </div>
+    <div class="traction-item">
+      <div class="traction-org">Law Society of Kenya</div>
+      <div class="traction-status">PIL demo scheduling (Uwazi — sister product)</div>
+    </div>
+    <div class="traction-item">
+      <div class="traction-org">Controller of Budget — Dr. Nyakang'o</div>
+      <div class="traction-status">Meeting confirmed June 2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="raise">
+  <div class="raise-inner fade">
+    <h2>Raising <em>USD 150–250K</em> seed.<br>38 screens. 9 revenue streams.<br>Built in Nairobi. Ready to launch.</h2>
+    <div class="raise-right">
+      <a href="mailto:lewismkariuki@gmail.com" class="btn-white">Get in touch</a>
+      <div class="raise-email">lewismkariuki@gmail.com<br>+254 721 733 205</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="f-mark">Nexus · Nairobi, Kenya · 2026</span>
+  <span>Lewis Kariuki Munene</span>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:0.07});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
